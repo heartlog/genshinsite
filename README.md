@@ -1,1 +1,1 @@
-# genshinsite
+# genshinsite.
