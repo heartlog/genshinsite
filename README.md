@@ -1,4 +1,4 @@
-# Game Code Extractor Website
+# [Game Code Extractor Website](https://heartlog.github.io/Hoyocodes/)
 
 A web application that fetches and displays redeemable codes for various HoYoverse games from a public API, presenting them as clickable links for easy redemption.
 
@@ -55,3 +55,7 @@ The website processes JSON data in this format:
   "previous_update": 1746345076,
   "latest_update": 1746348678
 }
+```
+## Made by 
+
+![https://enka.network/u/1813660397/](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/shot/Screenshot_2025-05-04-15-00-03-960_com.microsoft.bing.png)
