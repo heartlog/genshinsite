@@ -3,15 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genshin Impact Codes</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Game Code Extractor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #24292e;
+        }
+        .game-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0366d6;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        .code-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            border-left: 4px solid #0366d6;
+        }
+        .code {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .description {
+            margin: 5px 0;
+            color: #586069;
+        }
+        .added-at {
+            font-size: 0.8em;
+            color: #6a737d;
+        }
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        .error {
+            color: #d73a49;
+            background-color: #ffebeb;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .last-updated {
+            text-align: center;
+            font-size: 0.9em;
+            color: #6a737d;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Available Genshin Impact Codes</h1>
-    <div id="code-list">
-        <p>Loading codes...</p>
+    <h1>Game Code Extractor</h1>
+    <div id="loading" class="loading">Loading codes...</div>
+    <div id="error" class="error" style="display: none;"></div>
+    <div id="last-updated" class="last-updated"></div>
+    <div id="content">
+        <!-- Content will be loaded here -->
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchGameCodes();
+        });
+
+        function fetchGameCodes() {
+            fetch('https://db.hashblen.com/codes')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.retcode !== 0) {
+                        throw new Error('API returned error code');
+                    }
+                    displayGameCodes(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching game codes:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('error').textContent = 'Failed to load codes. Please try again later.';
+                });
+        }
+
+        function displayGameCodes(data) {
+            document.getElementById('loading').style.display = 'none';
+            
+            // Display last updated time
+            const lastUpdated = new Date(data.latest_update * 1000);
+            document.getElementById('last-updated').textContent = 
+                `Last updated: ${lastUpdated.toLocaleString()}`;
+            
+            const contentDiv = document.getElementById('content');
+            
+            // Process each game
+            if (data.genshin && data.genshin.length > 0) {
+                createGameSection(contentDiv, 'Genshin Impact', 'genshin', data.genshin, 'https://genshin.hoyoverse.com/en/gift?code=');
+            }
+            
+            if (data.hsr && data.hsr.length > 0) {
+                createGameSection(contentDiv, 'Honkai: Star Rail', 'hsr', data.hsr, 'https://hsr.hoyoverse.com/gift?code=');
+            }
+            
+            if (data.zzz && data.zzz.length > 0) {
+                createGameSection(contentDiv, 'Zenless Zone Zero', 'zzz', data.zzz, 'https://zzz.hoyoverse.com/gift?code=');
+            }
+        }
+
+        function createGameSection(parent, gameName, gameId, codes, baseUrl) {
+            const section = document.createElement('div');
+            section.className = 'game-section';
+            section.id = gameId;
+            
+            const heading = document.createElement('h2');
+            heading.textContent = gameName;
+            section.appendChild(heading);
+            
+            codes.forEach(codeData => {
+                const codeItem = document.createElement('div');
+                codeItem.className = 'code-item';
+                
+                const codeLink = document.createElement('a');
+                codeLink.className = 'code';
+                codeLink.href = baseUrl + codeData.code;
+                codeLink.target = '_blank';
+                codeLink.textContent = codeData.code;
+                
+                const description = document.createElement('div');
+                description.className = 'description';
+                description.textContent = codeData.description;
+                
+                const addedAt = document.createElement('div');
+                addedAt.className = 'added-at';
+                const date = new Date(codeData.added_at * 1000);
+                addedAt.textContent = `Added: ${date.toLocaleDateString()}`;
+                
+                codeItem.appendChild(codeLink);
+                codeItem.appendChild(description);
+                codeItem.appendChild(addedAt);
+                
+                section.appendChild(codeItem);
+            });
+            
+            parent.appendChild(section);
+        }
+    </script>
 </body>
 </html>
