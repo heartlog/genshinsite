@@ -1,4 +1,4 @@
-# [Game Code Extractor Website](https://heartlog.github.io/Hoyocodes/)
+# [Hoyocodes !](https://heartlog.github.io/Hoyocodes/)
 
 A web application that fetches and displays redeemable codes for various HoYoverse games from a public API, presenting them as clickable links for easy redemption.
 
