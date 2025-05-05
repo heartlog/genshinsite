@@ -6,10 +6,10 @@
     <title>Hoyocodes !</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Add this at the top of your style section */
+        /* Custom Font Import */
         @font-face {
             font-family: 'HoyocodesFont';
-            src: url('fonts/genshin.ttf') format('truetype');
+            src: url('font/genshin.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -47,7 +47,6 @@
             --footer-bg: rgba(40, 80, 120, 0.8);
         }
 
-        /* Apply the font to all text elements */
         body {
             font-family: 'HoyocodesFont', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1200px;
@@ -60,17 +59,485 @@
             transition: all 0.4s ease;
         }
 
-        /* Rest of your existing CSS remains the same... */
-        h1, h2, h3, h4, h5, h6,
-        .code, .description, .added-at,
-        .footer-link, .last-updated {
-            font-family: 'HoyocodesFont', inherit;
+        h1 {
+            text-align: center;
+            color: var(--text-primary);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: var(--header-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
-        /* Continue with the rest of your existing CSS... */
+        [data-theme="dark"] h1 {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(3px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .game-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--shadow-color);
+        }
+
+        h2 {
+            color: var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .code-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: rgba(230, 240, 255, 0.7);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(2px);
+        }
+
+        [data-theme="dark"] .code-item {
+            background-color: rgba(30, 60, 100, 0.5);
+        }
+
+        .code-item:hover {
+            transform: translateY(-3px);
+            background-color: rgba(240, 248, 255, 0.9);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        [data-theme="dark"] .code-item:hover {
+            background-color: rgba(40, 80, 120, 0.7);
+        }
+
+        .code {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .code::before {
+            content: "✦";
+            color: var(--gold-accent);
+            font-size: 0.9em;
+        }
+
+        .description {
+            margin: 8px 0 8px 20px;
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .added-at {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .new-badge {
+            background-color: var(--gold-accent);
+            color: #1a3a6a;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            font-weight: bold;
+            margin-left: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .new-badge {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            color: var(--gold-accent);
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-primary);
+            font-size: 1.2em;
+        }
+
+        .error {
+            color: var(--error-color);
+            background-color: rgba(255, 235, 235, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 100, 100, 0.3);
+        }
+
+        [data-theme="dark"] .error {
+            background-color: rgba(70, 20, 30, 0.8);
+            color: #ff6b6b;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            background-color: rgba(230, 240, 255, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        [data-theme="dark"] .last-updated {
+            background-color: rgba(30, 60, 100, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: var(--footer-bg);
+            color: var(--text-primary);
+            border-radius: 25px;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .footer-link:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--footer-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .currency-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Smooth transitions for theme change */
+        h1, h2, .game-section, .code-item, .footer-link, .last-updated, .theme-toggle {
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                padding: 10px;
+                margin-top: 40px;
+            }
+            
+            .game-section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .code-item {
+                padding: 12px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                max-width: 90%;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
     </style>
 </head>
 <body data-theme="light">
-    <!-- Rest of your HTML remains the same -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun"></i>
+    </div>
+
+    <h1>
+        <i class="fas fa-gem" style="color: var(--accent-color);"></i>
+        Hoyocodes !
+    </h1>
+    <div id="loading" class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading codes...
+    </div>
+    <div id="error" class="error" style="display: none;"></div>
+    <div id="last-updated" class="last-updated"></div>
+    <div id="content">
+        <!-- Content will be loaded here -->
+    </div>
+
+    <div class="footer-links">
+        <a href="https://github.com/heartlog" target="_blank" class="footer-link">
+            <i class="fab fa-github"></i> My GitHub Profile
+        </a>
+        <a href="https://github.com/heartlog/Hoyocodes" target="_blank" class="footer-link">
+            <i class="fas fa-code-branch"></i> Hoyocodes Repo
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchGameCodes();
+            setupThemeToggle();
+        });
+
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const icon = themeToggle.querySelector('i');
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('themePreference', newTheme);
+                
+                icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+                
+                // Add animation class
+                themeToggle.classList.add('animate');
+                setTimeout(() => {
+                    themeToggle.classList.remove('animate');
+                }, 300);
+            });
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('themePreference');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            } else {
+                // Default to light mode
+                document.body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
+            }
+        }
+
+        function fetchGameCodes() {
+            fetch('https://db.hashblen.com/codes')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.retcode !== 0) {
+                        throw new Error('API returned error code');
+                    }
+                    displayGameCodes(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching game codes:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('error').textContent = 'Failed to load codes. Please try again later.';
+                });
+        }
+
+        function displayGameCodes(data) {
+            document.getElementById('loading').style.display = 'none';
+            
+            // Display last updated time
+            const lastUpdated = new Date(data.latest_update * 1000);
+            document.getElementById('last-updated').textContent = 
+                `Last updated: ${lastUpdated.toLocaleString()}`;
+            
+            const contentDiv = document.getElementById('content');
+            
+            // Game icons and currency icons
+            const gameIcons = {
+                'genshin': '<i class="fas fa-wind" style="color: #0066cc;"></i>',
+                'hsr': '<i class="fas fa-train" style="color: #ff7eb9;"></i>',
+                'zzz': '<i class="fas fa-gamepad" style="color: #a78bfa;"></i>'
+            };
+            
+            // Currency icons (replace with your preferred image URLs)
+            const currencyIcons = {
+                'primogem': 'https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Item_Primogem.png',
+                'stellar jade': 'https://static.wikia.nocookie.net/houkai-star-rail/images/d/d9/Item_Stellar_Jade.png/revision/latest?cb=20241004165349',
+                'polychrome': 'https://static.wikia.nocookie.net/zenless-zone-zero/images/4/4c/Item_Polychrome.png/revision/latest?cb=20240807185318'
+            };
+            
+            // Process each game
+            if (data.genshin && data.genshin.length > 0) {
+                const sortedGenshin = [...data.genshin].sort((a, b) => b.added_at - a.added_at);
+                createGameSection(contentDiv, gameIcons.genshin + ' Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=', currencyIcons);
+            }
+            
+            if (data.hsr && data.hsr.length > 0) {
+                const sortedHSR = [...data.hsr].sort((a, b) => b.added_at - a.added_at);
+                createGameSection(contentDiv, gameIcons.hsr + ' Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=', currencyIcons);
+            }
+            
+            if (data.zzz && data.zzz.length > 0) {
+                const sortedZZZ = [...data.zzz].sort((a, b) => b.added_at - a.added_at);
+                createGameSection(contentDiv, gameIcons.zzz + ' Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zzz.hoyoverse.com/gift?code=', currencyIcons);
+            }
+        }
+
+        function createGameSection(parent, gameName, gameId, codes, baseUrl, currencyIcons) {
+            const section = document.createElement('div');
+            section.className = 'game-section';
+            section.id = gameId;
+            
+            const heading = document.createElement('h2');
+            heading.innerHTML = gameName;
+            section.appendChild(heading);
+            
+            const now = Math.floor(Date.now() / 1000);
+            const oneWeekAgo = now - (7 * 24 * 60 * 60); // 7 days in seconds
+            
+            codes.forEach(codeData => {
+                const codeItem = document.createElement('div');
+                codeItem.className = 'code-item';
+                
+                // Add "New" badge if code was added in the last 7 days
+                const isNew = codeData.added_at > oneWeekAgo;
+                
+                const codeLink = document.createElement('a');
+                codeLink.className = 'code';
+                codeLink.href = baseUrl + codeData.code;
+                codeLink.target = '_blank';
+                codeLink.textContent = codeData.code;
+                
+                if (isNew) {
+                    const newBadge = document.createElement('span');
+                    newBadge.className = 'new-badge';
+                    newBadge.textContent = 'New';
+                    codeLink.appendChild(newBadge);
+                }
+                
+                const description = document.createElement('div');
+                description.className = 'description';
+                
+                // Check for currency mentions in description
+                const lowerDesc = codeData.description.toLowerCase();
+                let currencyIcon = '';
+                
+                if (lowerDesc.includes('primogem')) {
+                    currencyIcon = `<img src="${currencyIcons['primogem']}" class="currency-icon" alt="Primogem">`;
+                } else if (lowerDesc.includes('stellar jade')) {
+                    currencyIcon = `<img src="${currencyIcons['stellar jade']}" class="currency-icon" alt="Stellar Jade">`;
+                } else if (lowerDesc.includes('polychrome')) {
+                    currencyIcon = `<img src="${currencyIcons['polychrome']}" class="currency-icon" alt="Polychrome">`;
+                }
+                
+                description.innerHTML = currencyIcon + codeData.description;
+                
+                const addedAt = document.createElement('div');
+                addedAt.className = 'added-at';
+                const date = new Date(codeData.added_at * 1000);
+                addedAt.innerHTML = `<i class="far fa-calendar-alt"></i> Added: ${date.toLocaleDateString()}`;
+                
+                codeItem.appendChild(codeLink);
+                codeItem.appendChild(description);
+                codeItem.appendChild(addedAt);
+                
+                section.appendChild(codeItem);
+            });
+            
+            parent.appendChild(section);
+        }
+    </script>
 </body>
 </html>
