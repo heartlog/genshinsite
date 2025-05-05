@@ -123,15 +123,18 @@
             
             // Process each game
             if (data.genshin && data.genshin.length > 0) {
-                createGameSection(contentDiv, 'Genshin Impact', 'genshin', data.genshin, 'https://genshin.hoyoverse.com/en/gift?code=');
+                const sortedGenshin = [...data.genshin].sort((a, b) => b.added_at - a.added_at);
+                createGameSection(contentDiv, 'Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=');
             }
             
             if (data.hsr && data.hsr.length > 0) {
-                createGameSection(contentDiv, 'Honkai: Star Rail', 'hsr', data.hsr, 'https://hsr.hoyoverse.com/gift?code=');
+                const sortedHSR = [...data.hsr].sort((a, b) => b.added_at - a.added_at);
+                createGameSection(contentDiv, 'Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=');
             }
             
             if (data.zzz && data.zzz.length > 0) {
-                createGameSection(contentDiv, 'Zenless Zone Zero', 'zzz', data.zzz, 'https://zzz.hoyoverse.com/gift?code=');
+                const sortedZZZ = [...data.zzz].sort((a, b) => b.added_at - a.added_at);
+                createGameSection(contentDiv, 'Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zzz.hoyoverse.com/gift?code=');
             }
         }
 
