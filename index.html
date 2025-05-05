@@ -4,84 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoyocodes !</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f0f5ff;
             color: #333;
+            background-image: linear-gradient(to bottom, #0a1a2e, #1a3a6a);
         }
         h1 {
             text-align: center;
-            color: #24292e;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: rgba(0, 30, 60, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 180, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         .game-section {
-            background-color: white;
-            border-radius: 8px;
+            background-color: rgba(20, 40, 70, 0.8);
+            border-radius: 12px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 30, 60, 0.5);
+            border: 1px solid rgba(100, 180, 255, 0.2);
         }
         h2 {
-            color: #0366d6;
-            border-bottom: 1px solid #e1e4e8;
+            color: #b8d4ff;
             padding-bottom: 10px;
             margin-top: 0;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(100, 180, 255, 0.3);
         }
         .code-item {
             margin-bottom: 15px;
-            padding: 10px;
-            background-color: #f6f8fa;
-            border-radius: 6px;
-            border-left: 4px solid #0366d6;
+            padding: 15px;
+            background-color: rgba(30, 60, 100, 0.6);
+            border-radius: 8px;
+            border-left: 4px solid #64b4ff;
+            transition: all 0.3s ease;
+        }
+        .code-item:hover {
+            transform: translateY(-3px);
+            background-color: rgba(40, 80, 120, 0.8);
+            box-shadow: 0 5px 15px rgba(0, 60, 120, 0.3);
         }
         .code {
             font-weight: bold;
-            color: #0366d6;
+            color: #64b4ff;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .code::before {
+            content: "✦";
+            color: #ffcc00;
         }
         .description {
-            margin: 5px 0;
-            color: #586069;
+            margin: 8px 0 8px 20px;
+            color: #b8d4ff;
+            line-height: 1.4;
         }
         .added-at {
-            font-size: 0.8em;
-            color: #6a737d;
+            font-size: 0.85em;
+            color: #8aa8cc;
+            font-style: italic;
+            margin-left: 20px;
         }
         a {
-            color: #0366d6;
+            color: #64b4ff;
             text-decoration: none;
+            transition: all 0.2s;
         }
         a:hover {
+            color: #ffcc00;
             text-decoration: underline;
         }
         .loading {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
+            color: #b8d4ff;
+            font-size: 1.2em;
         }
         .error {
-            color: #d73a49;
-            background-color: #ffebeb;
+            color: #ff6b6b;
+            background-color: rgba(70, 20, 30, 0.8);
             padding: 15px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 20px;
+            border: 1px solid rgba(255, 100, 100, 0.3);
         }
         .last-updated {
             text-align: center;
             font-size: 0.9em;
-            color: #6a737d;
+            color: #8aa8cc;
             margin-bottom: 20px;
+            background-color: rgba(30, 60, 100, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .github-link {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+        }
+        .github-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: rgba(40, 80, 120, 0.8);
+            color: #b8d4ff;
+            border-radius: 25px;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid rgba(100, 180, 255, 0.3);
+        }
+        .github-link a:hover {
+            background-color: rgba(60, 100, 140, 0.9);
+            transform: scale(1.05);
+            color: #ffcc00;
+            box-shadow: 0 2px 15px rgba(100, 180, 255, 0.3);
+        }
+        .game-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
-    <h1>Hoyocodes !</h1>
-    <div id="loading" class="loading">Loading codes...</div>
+    <h1>
+        <i class="fas fa-gem" style="color: #64b4ff;"></i>
+        Hoyocodes !
+    </h1>
+    <div id="loading" class="loading">
+        <i class="fas fa-spinner fa-spin"></i> Loading codes...
+    </div>
     <div id="error" class="error" style="display: none;"></div>
     <div id="last-updated" class="last-updated"></div>
     <div id="content">
         <!-- Content will be loaded here -->
+    </div>
+
+    <div class="github-link">
+        <a href="https://github.com/heartlog" target="_blank">
+            <i class="fab fa-github"></i> My GitHub Profile
+        </a>
     </div>
 
     <script>
@@ -121,20 +203,27 @@
             
             const contentDiv = document.getElementById('content');
             
+            // Game icons (using Font Awesome as placeholders)
+            const gameIcons = {
+                'genshin': '<i class="fas fa-wind" style="color: #64b4ff;"></i>',
+                'hsr': '<i class="fas fa-train" style="color: #ff7eb9;"></i>',
+                'zzz': '<i class="fas fa-gamepad" style="color: #a78bfa;"></i>'
+            };
+            
             // Process each game
             if (data.genshin && data.genshin.length > 0) {
                 const sortedGenshin = [...data.genshin].sort((a, b) => b.added_at - a.added_at);
-                createGameSection(contentDiv, 'Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=');
+                createGameSection(contentDiv, gameIcons.genshin + ' Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=');
             }
             
             if (data.hsr && data.hsr.length > 0) {
                 const sortedHSR = [...data.hsr].sort((a, b) => b.added_at - a.added_at);
-                createGameSection(contentDiv, 'Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=');
+                createGameSection(contentDiv, gameIcons.hsr + ' Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=');
             }
             
             if (data.zzz && data.zzz.length > 0) {
                 const sortedZZZ = [...data.zzz].sort((a, b) => b.added_at - a.added_at);
-                createGameSection(contentDiv, 'Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zzz.hoyoverse.com/gift?code=');
+                createGameSection(contentDiv, gameIcons.zzz + ' Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zzz.hoyoverse.com/gift?code=');
             }
         }
 
@@ -144,7 +233,7 @@
             section.id = gameId;
             
             const heading = document.createElement('h2');
-            heading.textContent = gameName;
+            heading.innerHTML = gameName;
             section.appendChild(heading);
             
             codes.forEach(codeData => {
