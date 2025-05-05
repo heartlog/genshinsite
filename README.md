@@ -4,7 +4,7 @@ A web application that fetches and displays redeemable codes for various HoYover
 
 
 
-![Screenshot](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/assets/screenshot.png
+![Screenshot](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/assets/screenshot.jpg)
 
 ## Features
 
