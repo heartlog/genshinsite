@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
+            /* Light Theme - Soft Sky Blue (Default) */
+            --bg-primary: #f8faff;
+            --bg-secondary: #e6f0ff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-primary: #1a2a4a;
+            --text-secondary: #3a4a6a;
+            --accent-color: #0066cc;
+            --gold-accent: #d4a017;
+            --error-color: #d73a49;
+            --border-color: rgba(0, 80, 160, 0.15);
+            --shadow-color: rgba(0, 60, 120, 0.1);
+            --header-bg: rgba(230, 240, 255, 0.9);
+            --footer-bg: rgba(210, 225, 245, 0.9);
+        }
+
+        [data-theme="dark"] {
             /* Dark Theme - Deep Ocean Blue */
             --bg-primary: #0a1128;
             --bg-secondary: #1a2a4a;
@@ -20,22 +36,6 @@
             --shadow-color: rgba(0, 20, 40, 0.5);
             --header-bg: rgba(10, 30, 60, 0.8);
             --footer-bg: rgba(40, 80, 120, 0.8);
-        }
-
-        [data-theme="light"] {
-            /* Light Theme - Soft Sky Blue */
-            --bg-primary: #f8faff;
-            --bg-secondary: #e6f0ff;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text-primary: #1a2a4a;
-            --text-secondary: #3a4a6a;
-            --accent-color: #0066cc;
-            --gold-accent: #d4a017;
-            --error-color: #d73a49;
-            --border-color: rgba(0, 80, 160, 0.15);
-            --shadow-color: rgba(0, 60, 120, 0.1);
-            --header-bg: rgba(230, 240, 255, 0.9);
-            --footer-bg: rgba(210, 225, 245, 0.9);
         }
 
         body {
@@ -53,7 +53,7 @@
         h1 {
             text-align: center;
             color: var(--text-primary);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             font-size: 2.5em;
             background: var(--header-bg);
@@ -68,8 +68,8 @@
             box-shadow: 0 4px 15px var(--shadow-color);
         }
 
-        [data-theme="light"] h1 {
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        [data-theme="dark"] h1 {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .game-section {
@@ -102,7 +102,7 @@
         .code-item {
             margin-bottom: 15px;
             padding: 15px;
-            background-color: rgba(30, 60, 100, 0.5);
+            background-color: rgba(230, 240, 255, 0.7);
             border-radius: 8px;
             border-left: 4px solid var(--accent-color);
             transition: all 0.3s ease;
@@ -110,18 +110,18 @@
             backdrop-filter: blur(2px);
         }
 
-        [data-theme="light"] .code-item {
-            background-color: rgba(230, 240, 255, 0.7);
+        [data-theme="dark"] .code-item {
+            background-color: rgba(30, 60, 100, 0.5);
         }
 
         .code-item:hover {
             transform: translateY(-3px);
-            background-color: rgba(40, 80, 120, 0.7);
+            background-color: rgba(240, 248, 255, 0.9);
             box-shadow: 0 5px 15px var(--shadow-color);
         }
 
-        [data-theme="light"] .code-item:hover {
-            background-color: rgba(240, 248, 255, 0.9);
+        [data-theme="dark"] .code-item:hover {
+            background-color: rgba(40, 80, 120, 0.7);
         }
 
         .code {
@@ -168,11 +168,11 @@
             font-size: 0.7em;
             font-weight: bold;
             margin-left: 10px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        [data-theme="light"] .new-badge {
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        [data-theme="dark"] .new-badge {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         a {
@@ -195,16 +195,16 @@
 
         .error {
             color: var(--error-color);
-            background-color: rgba(70, 20, 30, 0.8);
+            background-color: rgba(255, 235, 235, 0.9);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 100, 100, 0.3);
         }
 
-        [data-theme="light"] .error {
-            background-color: rgba(255, 235, 235, 0.9);
-            color: #d73a49;
+        [data-theme="dark"] .error {
+            background-color: rgba(70, 20, 30, 0.8);
+            color: #ff6b6b;
         }
 
         .last-updated {
@@ -212,14 +212,14 @@
             font-size: 0.9em;
             color: var(--text-secondary);
             margin-bottom: 20px;
-            background-color: rgba(30, 60, 100, 0.5);
+            background-color: rgba(230, 240, 255, 0.7);
             padding: 10px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
 
-        [data-theme="light"] .last-updated {
-            background-color: rgba(230, 240, 255, 0.7);
+        [data-theme="dark"] .last-updated {
+            background-color: rgba(30, 60, 100, 0.5);
         }
 
         .footer-links {
@@ -338,9 +338,9 @@
         }
     </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
     <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
     </div>
 
     <h1>
@@ -396,6 +396,10 @@
             if (savedTheme) {
                 document.body.setAttribute('data-theme', savedTheme);
                 icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            } else {
+                // Default to light mode
+                document.body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-sun';
             }
         }
 
@@ -433,7 +437,7 @@
             
             // Game icons and currency icons
             const gameIcons = {
-                'genshin': '<i class="fas fa-wind" style="color: #4d9fff;"></i>',
+                'genshin': '<i class="fas fa-wind" style="color: #0066cc;"></i>',
                 'hsr': '<i class="fas fa-train" style="color: #ff7eb9;"></i>',
                 'zzz': '<i class="fas fa-gamepad" style="color: #a78bfa;"></i>'
             };
@@ -441,8 +445,8 @@
             // Currency icons (replace with your preferred image URLs)
             const currencyIcons = {
                 'primogem': 'https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Item_Primogem.png',
-                'stellar jade': 'https://static.wikia.nocookie.net/houkai-star-rail/images/d/d9/Item_Stellar_Jade.png',
-                'polychrome': 'https://static.wikia.nocookie.net/zenless-zone-zero/images/4/4c/Item_Polychrome.png'
+                'stellar jade': 'https://static.wikia.nocookie.net/houkai-star-rail/images/d/d9/Item_Stellar_Jade.png/revision/latest?cb=20241004165349',
+                'polychrome': 'https://static.wikia.nocookie.net/zenless-zone-zero/images/4/4c/Item_Polychrome.png/revision/latest?cb=20240807185318'
             };
             
             // Process each game
