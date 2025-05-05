@@ -16,11 +16,13 @@ A web application that fetches and displays redeemable codes for various HoYover
 - **Clickable Links**: Each code is a direct link to the game's redemption page
 - **Responsive Design**: Works on both desktop and mobile devices
 - **Clean UI**: GitHub-inspired interface with clear organization
+- **AD free**: No ads whatsoever
+- **Day and Night mode**: Hoyo inspired design
 
 ## How It Works
 
 1. The page loads and makes a request to `https://db.hashblen.com/codes`
-2. The API returns JSON data containing all available codes
+2. The API returns JSON database containing all available codes
 3. The website organizes codes by game and displays them in sections
 4. Each code becomes a clickable link that opens the game's redemption page
 
