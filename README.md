@@ -4,7 +4,7 @@ A web application that fetches and displays redeemable codes for various HoYover
 
 
 
-![Screenshot](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/shot/screenshot.jpg)
+![Screenshot](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/assets/screenshot.jpg)
 
 ## Features
 
@@ -58,4 +58,4 @@ The website processes JSON data in this format:
 ```
 ## Made by 
 
-![https://enka.network/u/1813660397/](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/shot/card.png)
+![https://enka.network/u/1813660397/](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/assets/card.png)
