@@ -58,5 +58,4 @@ The website processes JSON data in this format:
 ```
 ## Made by 
 
-![https://enka.network/u/1813660397/](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/shot/car.png)
-d
+![https://enka.network/u/1813660397/](https://raw.githubusercontent.com/heartlog/Hoyocodes/refs/heads/main/shot/card.png)
