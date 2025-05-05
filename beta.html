@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoyocodes !</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Add this at the top of your style section */
+        @font-face {
+            font-family: 'HoyocodesFont';
+            src: url('fonts/genshin.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            /* Light Theme - Soft Sky Blue (Default) */
+            --bg-primary: #f8faff;
+            --bg-secondary: #e6f0ff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-primary: #1a2a4a;
+            --text-secondary: #3a4a6a;
+            --accent-color: #0066cc;
+            --gold-accent: #d4a017;
+            --error-color: #d73a49;
+            --border-color: rgba(0, 80, 160, 0.15);
+            --shadow-color: rgba(0, 60, 120, 0.1);
+            --header-bg: rgba(230, 240, 255, 0.9);
+            --footer-bg: rgba(210, 225, 245, 0.9);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme - Deep Ocean Blue */
+            --bg-primary: #0a1128;
+            --bg-secondary: #1a2a4a;
+            --card-bg: rgba(20, 40, 70, 0.9);
+            --text-primary: #e6f0ff;
+            --text-secondary: #b8d4ff;
+            --accent-color: #4d9fff;
+            --gold-accent: #ffd700;
+            --error-color: #ff6b6b;
+            --border-color: rgba(100, 180, 255, 0.2);
+            --shadow-color: rgba(0, 20, 40, 0.5);
+            --header-bg: rgba(10, 30, 60, 0.8);
+            --footer-bg: rgba(40, 80, 120, 0.8);
+        }
+
+        /* Apply the font to all text elements */
+        body {
+            font-family: 'HoyocodesFont', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            background-image: linear-gradient(160deg, var(--bg-primary), var(--bg-secondary));
+            min-height: 100vh;
+            transition: all 0.4s ease;
+        }
+
+        /* Rest of your existing CSS remains the same... */
+        h1, h2, h3, h4, h5, h6,
+        .code, .description, .added-at,
+        .footer-link, .last-updated {
+            font-family: 'HoyocodesFont', inherit;
+        }
+
+        /* Continue with the rest of your existing CSS... */
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Rest of your HTML remains the same -->
+</body>
+</html>
