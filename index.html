@@ -116,12 +116,14 @@
             padding: 10px;
             border-radius: 8px;
         }
-        .github-link {
-            text-align: center;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             margin-top: 30px;
-            padding: 10px;
+            flex-wrap: wrap;
         }
-        .github-link a {
+        .footer-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -133,7 +135,7 @@
             text-decoration: none;
             border: 1px solid rgba(100, 180, 255, 0.3);
         }
-        .github-link a:hover {
+        .footer-link:hover {
             background-color: rgba(60, 100, 140, 0.9);
             transform: scale(1.05);
             color: #ffcc00;
@@ -160,9 +162,12 @@
         <!-- Content will be loaded here -->
     </div>
 
-    <div class="github-link">
-        <a href="https://github.com/heartlog" target="_blank">
+    <div class="footer-links">
+        <a href="https://github.com/heartlog" target="_blank" class="footer-link">
             <i class="fab fa-github"></i> My GitHub Profile
+        </a>
+        <a href="https://github.com/heartlog/Hoyocodes" target="_blank" class="footer-link">
+            <i class="fas fa-code-branch"></i> Hoyocodes Repo
         </a>
     </div>
 
