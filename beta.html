@@ -6,15 +6,6 @@
     <title>Hoyocodes !</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Custom Font Import */
-        @font-face {
-            font-family: 'HoyocodesFont';
-            src: url('font/zh-cn.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-
         :root {
             /* Light Theme - Soft Sky Blue (Default) */
             --bg-primary: #f8faff;
@@ -48,7 +39,7 @@
         }
 
         body {
-            font-family: 'HoyocodesFont', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -59,26 +50,108 @@
             transition: all 0.4s ease;
         }
 
-        h1 {
-            text-align: center;
-            color: var(--text-primary);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            font-size: 2.5em;
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: var(--header-bg);
             padding: 15px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         [data-theme="dark"] h1 {
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: var(--footer-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .menu-toggle {
+            background: var(--footer-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            position: relative;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 0;
+            min-width: 180px;
+            z-index: 100;
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--accent-color);
+            color: white;
         }
 
         .game-section {
@@ -97,15 +170,44 @@
             box-shadow: 0 6px 25px var(--shadow-color);
         }
 
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
         h2 {
             color: var(--accent-color);
-            padding-bottom: 10px;
-            margin-top: 0;
+            margin: 0;
             font-size: 1.8em;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 2px solid var(--border-color);
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .game-section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .game-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .game-section.collapsed .game-content {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         .code-item {
@@ -261,30 +363,6 @@
             text-decoration: none;
         }
 
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--footer-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-            background: var(--accent-color);
-            color: white;
-        }
-
         .currency-icon {
             width: 20px;
             height: 20px;
@@ -295,7 +373,7 @@
         }
 
         /* Smooth transitions for theme change */
-        h1, h2, .game-section, .code-item, .footer-link, .last-updated, .theme-toggle {
+        h1, h2, .game-section, .code-item, .footer-link, .last-updated, .theme-toggle, .menu-toggle {
             transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
@@ -304,10 +382,13 @@
                 padding: 15px;
             }
             
-            h1 {
-                font-size: 1.8em;
+            .header-container {
                 padding: 10px;
                 margin-top: 40px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
             }
             
             .game-section {
@@ -328,9 +409,7 @@
                 gap: 10px;
             }
             
-            .theme-toggle {
-                top: 10px;
-                right: 10px;
+            .theme-toggle, .menu-toggle {
                 width: 35px;
                 height: 35px;
             }
@@ -342,20 +421,32 @@
             }
             
             h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
         }
     </style>
 </head>
 <body data-theme="light">
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-sun"></i>
+    <div class="header-container">
+        <h1>
+            <i class="fas fa-gem" style="color: var(--accent-color);"></i>
+            Hoyocodes !
+        </h1>
+        <div class="header-actions">
+            <div class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-ellipsis-v"></i>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#genshin"><i class="fas fa-wind"></i> Genshin Impact</a>
+                    <a href="#hsr"><i class="fas fa-train"></i> Star Rail</a>
+                    <a href="#zzz"><i class="fas fa-gamepad"></i> ZZZ</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <h1>
-        <i class="fas fa-gem" style="color: var(--accent-color);"></i>
-        Hoyocodes !
-    </h1>
     <div id="loading" class="loading">
         <i class="fas fa-spinner fa-spin"></i> Loading codes...
     </div>
@@ -378,6 +469,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             fetchGameCodes();
             setupThemeToggle();
+            setupMenuToggle();
+            setupCollapsibleSections();
+            restoreScrollPosition();
         });
 
         function setupThemeToggle() {
@@ -410,6 +504,56 @@
                 document.body.setAttribute('data-theme', 'light');
                 icon.className = 'fas fa-sun';
             }
+        }
+
+        function setupMenuToggle() {
+            const menuToggle = document.getElementById('menuToggle');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                dropdownMenu.classList.remove('show');
+            });
+        }
+
+        function setupCollapsibleSections() {
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.game-header')) {
+                    const section = e.target.closest('.game-section');
+                    section.classList.toggle('collapsed');
+                    
+                    // Save collapsed state
+                    const gameId = section.id;
+                    const isCollapsed = section.classList.contains('collapsed');
+                    localStorage.setItem(`collapsed_${gameId}`, isCollapsed);
+                }
+            });
+        }
+
+        function restoreCollapsedStates() {
+            document.querySelectorAll('.game-section').forEach(section => {
+                const gameId = section.id;
+                const isCollapsed = localStorage.getItem(`collapsed_${gameId}`) === 'true';
+                if (isCollapsed) {
+                    section.classList.add('collapsed');
+                }
+            });
+        }
+
+        function restoreScrollPosition() {
+            const scrollY = localStorage.getItem('scrollPosition');
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY));
+            }
+            
+            window.addEventListener('beforeunload', function() {
+                localStorage.setItem('scrollPosition', window.scrollY);
+            });
         }
 
         function fetchGameCodes() {
@@ -453,9 +597,9 @@
             
             // Currency icons (replace with your preferred image URLs)
             const currencyIcons = {
-                'primogem': 'https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Item_Primogem.png',
-                'stellar jade': 'https://static.wikia.nocookie.net/houkai-star-rail/images/d/d9/Item_Stellar_Jade.png/revision/latest?cb=20241004165349',
-                'polychrome': 'https://static.wikia.nocookie.net/zenless-zone-zero/images/4/4c/Item_Polychrome.png/revision/latest?cb=20240807185318'
+                'primogem': 'assets/primogem.png',
+                'stellar jade': 'assets/stellarjade.png',
+                'polychrome': 'assets/polychrome.png'
             };
             
             // Process each game
@@ -473,6 +617,9 @@
                 const sortedZZZ = [...data.zzz].sort((a, b) => b.added_at - a.added_at);
                 createGameSection(contentDiv, gameIcons.zzz + ' Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zzz.hoyoverse.com/gift?code=', currencyIcons);
             }
+            
+            // Restore collapsed states after content is loaded
+            setTimeout(restoreCollapsedStates, 100);
         }
 
         function createGameSection(parent, gameName, gameId, codes, baseUrl, currencyIcons) {
@@ -480,9 +627,21 @@
             section.className = 'game-section';
             section.id = gameId;
             
+            const header = document.createElement('div');
+            header.className = 'game-header';
+            
             const heading = document.createElement('h2');
             heading.innerHTML = gameName;
-            section.appendChild(heading);
+            
+            const toggleIcon = document.createElement('i');
+            toggleIcon.className = 'fas fa-chevron-down toggle-icon';
+            
+            header.appendChild(heading);
+            header.appendChild(toggleIcon);
+            section.appendChild(header);
+            
+            const content = document.createElement('div');
+            content.className = 'game-content';
             
             const now = Math.floor(Date.now() / 1000);
             const oneWeekAgo = now - (7 * 24 * 60 * 60); // 7 days in seconds
@@ -533,9 +692,10 @@
                 codeItem.appendChild(description);
                 codeItem.appendChild(addedAt);
                 
-                section.appendChild(codeItem);
+                content.appendChild(codeItem);
             });
             
+            section.appendChild(content);
             parent.appendChild(section);
         }
     </script>
