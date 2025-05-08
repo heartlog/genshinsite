@@ -42,34 +42,120 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             background-image: linear-gradient(160deg, var(--bg-primary), var(--bg-secondary));
             min-height: 100vh;
             transition: all 0.4s ease;
+            position: relative; /* Needed for absolute positioning of dropdown */
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--header-bg);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 20px;
         }
 
         h1 {
-            text-align: center;
             color: var(--text-primary);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            background: var(--header-bg);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            margin: 0;
+            font-size: 1.6em;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px var(--shadow-color);
+            gap: 8px;
         }
 
         [data-theme="dark"] h1 {
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            background: var(--footer-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .menu-toggle {
+            background: var(--footer-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            position: relative;
+        }
+
+
+
+        .dropdown-menu {
+            position: absolute;
+            top: 55px; /* Adjusted for better positioning */
+            right: 15px;  /* Adjusted for better positioning */
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 0;
+            min-width: 160px;
+            z-index: 2000; /* Ensures it's always on top */
+            display: none;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.9em;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .dropdown-menu i {
+            width: 18px;
+            text-align: center;
+            margin-right: 8px;
         }
 
         .game-section {
@@ -88,15 +174,45 @@
             box-shadow: 0 6px 25px var(--shadow-color);
         }
 
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
         h2 {
             color: var(--accent-color);
-            padding-bottom: 10px;
-            margin-top: 0;
+            margin: 0;
             font-size: 1.8em;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 2px solid var(--border-color);
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .game-section.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .game-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 2000px;
+            opacity: 1;
+            padding-top: 15px;
+        }
+
+        .game-section.collapsed .game-content {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         .code-item {
@@ -252,30 +368,6 @@
             text-decoration: none;
         }
 
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--footer-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px var(--shadow-color);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-            background: var(--accent-color);
-            color: white;
-        }
-
         .currency-icon {
             width: 20px;
             height: 20px;
@@ -286,44 +378,46 @@
         }
 
         /* Smooth transitions for theme change */
-        h1, h2, .game-section, .code-item, .footer-link, .last-updated, .theme-toggle {
+        h1, h2, .game-section, .code-item, .footer-link, .last-updated, .theme-toggle, .menu-toggle {
             transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 1.8em;
                 padding: 10px;
+            }
+
+            .header-container {
+                padding: 8px 12px;
                 margin-top: 40px;
             }
-            
+
+            h1 {
+                font-size: 1.4em;
+            }
+
             .game-section {
                 padding: 15px;
             }
-            
+
             h2 {
                 font-size: 1.5em;
             }
-            
+
             .code-item {
                 padding: 12px;
             }
-            
+
             .footer-links {
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
             }
-            
-            .theme-toggle {
-                top: 10px;
-                right: 10px;
-                width: 35px;
-                height: 35px;
+
+            .theme-toggle, .menu-toggle {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9em;
             }
         }
 
@@ -331,27 +425,41 @@
             body {
                 max-width: 90%;
             }
-            
+
             h1 {
-                font-size: 2em;
+                font-size: 1.5em;
             }
         }
     </style>
 </head>
 <body data-theme="light">
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-sun"></i>
+    <div class="header-container">
+        <h1>
+            <i class="fas fa-gem" style="color: var(--accent-color);"></i>
+            Hoyocodes !
+        </h1>
+        <div class="header-actions">
+            <div class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </div>
     </div>
 
-    <h1>
-        <i class="fas fa-gem" style="color: var(--accent-color);"></i>
-        Hoyocodes !
-    </h1>
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="https://github.com/heartlog" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://heartlog.github.io/Hoyocodes/beta" target="_blank"><i class="fas fa-flask"></i> Beta Page</a>
+        <a href="https://m.hoyolab.com/#/accountCenter/postList?id=449295506" target="_blank"><i class="fas fa-plus"></i>Hoyolab</a>
+    </div>
+
     <div id="loading" class="loading">
         <i class="fas fa-spinner fa-spin"></i> Loading codes...
     </div>
     <div id="error" class="error" style="display: none;"></div>
     <div id="last-updated" class="last-updated"></div>
+
     <div id="content">
         <!-- Content will be loaded here -->
     </div>
@@ -369,38 +477,81 @@
         document.addEventListener('DOMContentLoaded', function() {
             fetchGameCodes();
             setupThemeToggle();
+            setupMenuToggle();
+            setupCollapsibleSections();
+            restoreScrollPosition();
         });
 
         function setupThemeToggle() {
             const themeToggle = document.getElementById('themeToggle');
             const icon = themeToggle.querySelector('i');
-            
+
             themeToggle.addEventListener('click', function() {
                 const currentTheme = document.body.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
+
                 document.body.setAttribute('data-theme', newTheme);
                 localStorage.setItem('themePreference', newTheme);
-                
+
                 icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-                
-                // Add animation class
-                themeToggle.classList.add('animate');
-                setTimeout(() => {
-                    themeToggle.classList.remove('animate');
-                }, 300);
             });
-            
+
             // Check for saved theme preference
             const savedTheme = localStorage.getItem('themePreference');
             if (savedTheme) {
                 document.body.setAttribute('data-theme', savedTheme);
                 icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
-            } else {
-                // Default to light mode
-                document.body.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-sun';
             }
+        }
+
+        function setupMenuToggle() {
+            const menuToggle = document.getElementById('menuToggle');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                dropdownMenu.classList.remove('show');
+            });
+        }
+
+        function setupCollapsibleSections() {
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.game-header')) {
+                    const section = e.target.closest('.game-section');
+                    section.classList.toggle('collapsed');
+
+                    // Save collapsed state
+                    const gameId = section.id;
+                    const isCollapsed = section.classList.contains('collapsed');
+                    localStorage.setItem(`collapsed_${gameId}`, isCollapsed);
+                }
+            });
+        }
+
+        function restoreCollapsedStates() {
+            document.querySelectorAll('.game-section').forEach(section => {
+                const gameId = section.id;
+                const isCollapsed = localStorage.getItem(`collapsed_${gameId}`) === 'true';
+                if (isCollapsed) {
+                    section.classList.add('collapsed');
+                }
+            });
+        }
+
+        function restoreScrollPosition() {
+            const scrollY = localStorage.getItem('scrollPosition');
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY));
+            }
+
+            window.addEventListener('beforeunload', function() {
+                localStorage.setItem('scrollPosition', window.scrollY);
+            });
         }
 
         function fetchGameCodes() {
@@ -427,84 +578,99 @@
 
         function displayGameCodes(data) {
             document.getElementById('loading').style.display = 'none';
-            
+
             // Display last updated time
             const lastUpdated = new Date(data.latest_update * 1000);
-            document.getElementById('last-updated').textContent = 
+            document.getElementById('last-updated').textContent =
                 `Last updated: ${lastUpdated.toLocaleString()}`;
-            
+
             const contentDiv = document.getElementById('content');
-            
+
             // Game icons and currency icons
             const gameIcons = {
                 'genshin': '<i class="fas fa-wind" style="color: #0066cc;"></i>',
                 'hsr': '<i class="fas fa-train" style="color: #ff7eb9;"></i>',
                 'zzz': '<i class="fas fa-gamepad" style="color: #a78bfa;"></i>'
             };
-            
+
             // Currency icons (replace with your preferred image URLs)
             const currencyIcons = {
                 'primogem': 'assets/primogem.png',
                 'stellar jade': 'assets/stellarjade.png',
                 'polychrome': 'assets/polychrome.png'
             };
-            
+
             // Process each game
             if (data.genshin && data.genshin.length > 0) {
                 const sortedGenshin = [...data.genshin].sort((a, b) => b.added_at - a.added_at);
                 createGameSection(contentDiv, gameIcons.genshin + ' Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=', currencyIcons);
             }
-            
+
             if (data.hsr && data.hsr.length > 0) {
                 const sortedHSR = [...data.hsr].sort((a, b) => b.added_at - a.added_at);
                 createGameSection(contentDiv, gameIcons.hsr + ' Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=', currencyIcons);
             }
-            
+
             if (data.zzz && data.zzz.length > 0) {
                 const sortedZZZ = [...data.zzz].sort((a, b) => b.added_at - a.added_at);
                 createGameSection(contentDiv, gameIcons.zzz + ' Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zzz.hoyoverse.com/gift?code=', currencyIcons);
             }
+
+            // Restore collapsed states after content is loaded
+            setTimeout(restoreCollapsedStates, 100);
         }
 
         function createGameSection(parent, gameName, gameId, codes, baseUrl, currencyIcons) {
             const section = document.createElement('div');
             section.className = 'game-section';
             section.id = gameId;
-            
+
+            const header = document.createElement('div');
+            header.className = 'game-header';
+
             const heading = document.createElement('h2');
             heading.innerHTML = gameName;
-            section.appendChild(heading);
-            
+
+            const toggleIcon = document.createElement('i');
+            toggleIcon.className = 'fas fa-chevron-down toggle-icon';
+
+            header.appendChild(heading);
+            header.appendChild(toggleIcon);
+            section.appendChild(header);
+
+            const content = document.createElement('div');
+            content.className = 'game-content';
+
             const now = Math.floor(Date.now() / 1000);
             const oneWeekAgo = now - (7 * 24 * 60 * 60); // 7 days in seconds
-            
+
             codes.forEach(codeData => {
                 const codeItem = document.createElement('div');
                 codeItem.className = 'code-item';
-                
+
                 // Add "New" badge if code was added in the last 7 days
                 const isNew = codeData.added_at > oneWeekAgo;
-                
+
                 const codeLink = document.createElement('a');
                 codeLink.className = 'code';
                 codeLink.href = baseUrl + codeData.code;
                 codeLink.target = '_blank';
                 codeLink.textContent = codeData.code;
-                
+
                 if (isNew) {
                     const newBadge = document.createElement('span');
                     newBadge.className = 'new-badge';
                     newBadge.textContent = 'New';
                     codeLink.appendChild(newBadge);
                 }
-                
+
                 const description = document.createElement('div');
                 description.className = 'description';
-                
+
                 // Check for currency mentions in description
                 const lowerDesc = codeData.description.toLowerCase();
                 let currencyIcon = '';
-                
+
                 if (lowerDesc.includes('primogem')) {
                     currencyIcon = `<img src="${currencyIcons['primogem']}" class="currency-icon" alt="Primogem">`;
                 } else if (lowerDesc.includes('stellar jade')) {
@@ -512,21 +678,22 @@
                 } else if (lowerDesc.includes('polychrome')) {
                     currencyIcon = `<img src="${currencyIcons['polychrome']}" class="currency-icon" alt="Polychrome">`;
                 }
-                
+
                 description.innerHTML = currencyIcon + codeData.description;
-                
+
                 const addedAt = document.createElement('div');
                 addedAt.className = 'added-at';
                 const date = new Date(codeData.added_at * 1000);
                 addedAt.innerHTML = `<i class="far fa-calendar-alt"></i> Added: ${date.toLocaleDateString()}`;
-                
+
                 codeItem.appendChild(codeLink);
                 codeItem.appendChild(description);
                 codeItem.appendChild(addedAt);
-                
-                section.appendChild(codeItem);
+
+                content.appendChild(codeItem);
             });
-            
+
+            section.appendChild(content);
             parent.appendChild(section);
         }
     </script>
