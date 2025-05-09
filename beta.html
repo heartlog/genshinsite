@@ -256,6 +256,12 @@
             font-size: 0.9em;
         }
 
+        /* Style for clicked code */
+        .code.clicked {
+            color: var(--text-secondary); /* Muted color */
+            text-decoration: line-through;
+        }
+
         .description {
             margin: 8px 0 8px 20px;
             color: var(--text-primary);
@@ -576,6 +582,17 @@
                 });
         }
 
+        // Function to get clicked codes from local storage
+        function getClickedCodes() {
+            const clickedCodes = localStorage.getItem('clickedCodes');
+            return clickedCodes ? JSON.parse(clickedCodes) : [];
+        }
+
+        // Function to save clicked codes to local storage
+        function saveClickedCodes(codes) {
+            localStorage.setItem('clickedCodes', JSON.stringify(codes));
+        }
+
         function displayGameCodes(data) {
             document.getElementById('loading').style.display = 'none';
 
@@ -600,27 +617,29 @@
                 'polychrome': 'assets/polychrome.png'
             };
 
+            const clickedCodes = getClickedCodes(); // Get clicked codes from local storage
+
             // Process each game
             if (data.genshin && data.genshin.length > 0) {
                 const sortedGenshin = [...data.genshin].sort((a, b) => b.added_at - a.added_at);
-                createGameSection(contentDiv, gameIcons.genshin + ' Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=', currencyIcons);
+                createGameSection(contentDiv, gameIcons.genshin + ' Genshin Impact', 'genshin', sortedGenshin, 'https://genshin.hoyoverse.com/en/gift?code=', currencyIcons, clickedCodes);
             }
 
             if (data.hsr && data.hsr.length > 0) {
                 const sortedHSR = [...data.hsr].sort((a, b) => b.added_at - a.added_at);
-                createGameSection(contentDiv, gameIcons.hsr + ' Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=', currencyIcons);
+                createGameSection(contentDiv, gameIcons.hsr + ' Honkai: Star Rail', 'hsr', sortedHSR, 'https://hsr.hoyoverse.com/gift?code=', currencyIcons, clickedCodes);
             }
 
             if (data.zzz && data.zzz.length > 0) {
                 const sortedZZZ = [...data.zzz].sort((a, b) => b.added_at - a.added_at);
-                createGameSection(contentDiv, gameIcons.zzz + ' Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zenless.hoyoverse.com/redemption?code=', currencyIcons);
+                createGameSection(contentDiv, gameIcons.zzz + ' Zenless Zone Zero', 'zzz', sortedZZZ, 'https://zenless.hoyoverse.com/redemption?code=', currencyIcons, clickedCodes);
             }
 
             // Restore collapsed states after content is loaded
             setTimeout(restoreCollapsedStates, 100);
         }
 
-        function createGameSection(parent, gameName, gameId, codes, baseUrl, currencyIcons) {
+        function createGameSection(parent, gameName, gameId, codes, baseUrl, currencyIcons, clickedCodes) {
             const section = document.createElement('div');
             section.className = 'game-section';
             section.id = gameId;
@@ -656,6 +675,22 @@
                 codeLink.href = baseUrl + codeData.code;
                 codeLink.target = '_blank';
                 codeLink.textContent = codeData.code;
+
+                // Check if the code is in the clickedCodes array and style it accordingly
+                if (clickedCodes.includes(codeData.code)) {
+                    codeLink.classList.add('clicked');
+                }
+
+                // Add event listener to code links to track clicked codes
+                codeLink.addEventListener('click', function(e) {
+                    const codeValue = codeData.code;
+                    if (!clickedCodes.includes(codeValue)) {
+                        clickedCodes.push(codeValue);
+                        saveClickedCodes(clickedCodes);
+                        codeLink.classList.add('clicked');
+                    }
+                });
+
 
                 if (isNew) {
                     const newBadge = document.createElement('span');
